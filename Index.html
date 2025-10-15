@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LegalSathi – Learn Your Rights</title>
+<style>
+  body { font-family: "Poppins", sans-serif; margin:0; background:#f4f7fa; color:#333; transition: background 0.3s, color 0.3s; }
+  body.dark { background:#121212; color:#f4f4f4; }
+  header { background:#0a4d68; color:white; text-align:center; padding:2rem 1rem; }
+  header h1 { margin:0; font-size:2rem; }
+  header p { font-size:1rem; margin-top:0.5rem; }
+  section { padding:2rem; max-width:900px; margin:auto; }
+  h2 { color:#0a4d68; }
+  .rights { background:white; border-radius:12px; box-shadow:0 4px 10px rgba(0,0,0,0.1); padding:1.5rem; margin-bottom:1.5rem; transition: background 0.3s, color 0.3s; }
+  body.dark .rights { background:#1e1e1e; color:#f4f4f4; }
+  #toggleLang, #toggleDark { margin:0.5rem 0.5rem 1rem 0; padding:0.6rem 1rem; border-radius:8px; border:none; background-color:#0a4d68; color:white; cursor:pointer; }
+  #chatbot { background:white; border-radius:12px; box-shadow:0 4px 10px rgba(0,0,0,0.1); padding:1.5rem; max-width:900px; margin:2rem auto; transition: background 0.3s, color 0.3s; }
+  body.dark #chatbot { background:#1e1e1e; color:#f4f4f4; }
+  #chatlog { border:1px solid #ddd; border-radius:10px; padding:1rem; height:300px; overflow-y:auto; background-color:#fafafa; }
+  body.dark #chatlog { background:#2c2c2c; border-color:#555; }
+  .bot { color:#0a4d68; margin-bottom:1rem; }
+  .user { text-align:right; color:#222; margin-bottom:1rem; }
+  #userInput { width:80%; padding:0.8rem; border:1px solid #ccc; border-radius:8px; margin-top:1rem; }
+  button.sendBtn { padding:0.8rem 1rem; background-color:#0a4d68; color:white; border:none; border-radius:8px; cursor:pointer; }
+  footer { text-align:center; background:#0a4d68; color:white; padding:1rem; margin-top:2rem; }
+  footer p { margin:0; font-size:0.9rem; }
+  #searchBox { width:100%; padding:0.8rem; border-radius:8px; border:1px solid #ccc; margin-bottom:1rem; }
+  a { color:#0a4d68; }
+  body.dark a { color:#4da6ff; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>⚖️ LegalSathi</h1>
+  <p>Empowering citizens through awareness of their legal rights</p>
+</header>
+
+<section id="about">
+  <h2>About LegalSathi</h2>
+  <p>LegalSathi helps Indian citizens understand their basic legal rights and laws through a simple, friendly chatbot.</p>
+</section>
+
+<section id="rights">
+  <h2>🧾 Know Your Basic Rights</h2>
+  <input type="text" id="searchBox" placeholder="Search rights...">
+  <button id="toggleLang" onclick="toggleLanguage()">Switch to Hindi 🇮🇳</button>
+  <button id="toggleDark" onclick="toggleDarkMode()">Toggle Dark Mode 🌙</button>
+
+  <div class="rights" data-key="equality">
+    <h3>1️⃣ Right to Equality</h3>
+    <p>All citizens are equal before the law and cannot be discriminated against on religion, race, caste, gender, or place of birth.</p>
+    <a href="https://www.indiacode.nic.in/handle/123456789/2249" target="_blank">Learn More</a>
+  </div>
+
+  <div class="rights" data-key="freedom">
+    <h3>2️⃣ Right to Freedom</h3>
+    <p>All citizens have freedom of speech, movement, assembly, association, and profession under the Constitution of India.</p>
+    <a href="https://www.indiacode.nic.in/handle/123456789/2249" target="_blank">Learn More</a>
+  </div>
+
+  <div class="rights" data-key="education">
+    <h3>3️⃣ Right to Education</h3>
+    <p>The Right to Education Act (2009) guarantees free and compulsory education for children aged 6–14 years.</p>
+    <a href="https://www.indiacode.nic.in/handle/123456789/2249" target="_blank">Learn More</a>
+  </div>
+
+  <div class="rights" data-key="consumer">
+    <h3>4️⃣ Consumer Rights</h3>
+    <p>You have the right to safety, information, choice, redressal, and consumer education.</p>
+    <a href="https://consumeraffairs.nic.in/" target="_blank">Learn More</a>
+  </div>
+
+  <div class="rights" data-key="women">
+    <h3>5️⃣ Women’s Rights</h3>
+    <p>Women have the right to equal pay, workplace safety, and maternity benefits under Indian law.</p>
+    <a href="https://wcd.nic.in/" target="_blank">Learn More</a>
+  </div>
+
+  <div class="rights" data-key="exploitation">
+    <h3>6️⃣ Right against Exploitation</h3>
+    <p>No one shall be subjected to human trafficking or forced labor under Indian law.</p>
+    <a href="https://www.indiacode.nic.in/handle/123456789/2249" target="_blank">Learn More</a>
+  </div>
+
+  <div class="rights" data-key="religion">
+    <h3>7️⃣ Right to Freedom of Religion</h3>
+    <p>All citizens have the freedom to practice, profess, and propagate their religion.</p>
+    <a href="https://www.indiacode.nic.in/handle/123456789/2249" target="_blank">Learn More</a>
+  </div>
+
+  <div class="rights" data-key="constitutional">
+    <h3>8️⃣ Right to Constitutional Remedies</h3>
+    <p>Citizens can move the courts to enforce their Fundamental Rights.</p>
+    <a href="https://www.indiacode.nic.in/handle/123456789/2249" target="_blank">Learn More</a>
+  </div>
+
+  <div class="rights" data-key="legal aid">
+    <h3>9️⃣ Free Legal Aid</h3>
+    <p>Under Article 39A, free legal aid is provided to people who cannot afford a lawyer.</p>
+    <a href="https://legalaid.gov.in/" target="_blank">Learn More</a>
+  </div>
+
+  <div class="rights" data-key="child rights">
+    <h3>🔟 Child Rights</h3>
+    <p>Children have the right to protection, education, and participation under the Constitution.</p>
+    <a href="https://wcd.nic.in/child-rights" target="_blank">Learn More</a>
+  </div>
+</section>
+
+<section id="faq">
+<h2>❓ FAQ</h2>
+<div class="rights" data-key="faq1">
+<h3>Q1: How can I file a complaint?</h3>
+<p>You can approach your local police station, consumer forum, or legal aid office depending on the issue.</p>
+</div>
+
+<div class="rights" data-key="faq2">
+<h3>Q2: Where can I get free legal aid?</h3>
+<p>Legal Aid Services under Article 39A provide free lawyers to those who cannot afford one.</p>
+</div>
+
+<div class="rights" data-key="faq3">
+<h3>Q3: How can I learn more about my rights?</h3>
+<p>You can visit India Code, Ministry of Law websites, or use resources like LegalSathi to learn in simple language.</p>
+</div>
+</section>
+
+<section id="chatbot">
+<h2>💬 Chat with LegalSathi</h2>
+<div id="chatlog">
+  <div class="bot">LegalSathi: Hello! I’m your legal friend. Ask me about your rights! 😊</div>
+</div>
+<input type="text" id="userInput" placeholder="Type your question...">
+<button class="sendBtn" onclick="sendMessage()">Send</button>
+</section>
+
+<footer>
+<p>Made with ❤️ by Mayank Srivastava | LegalSathi © 2025</p>
+</footer>
+
+<script>
+const rights = {
+english:{
+"equality":"All citizens are equal before the law. No discrimination is allowed based on religion, race, caste, gender, or place of birth.",
+"freedom":"All citizens have freedom of speech, movement, assembly, association, and profession under the Constitution of India.",
+"education":"The Right to Education Act (2009) guarantees free and compulsory education for children aged 6–14 years.",
+"consumer":"You have the right to safety, information, choice, redressal, and consumer education.",
+"women":"Women have the right to equal pay, workplace safety, and maternity benefits.",
+"exploitation":"No one shall be subjected to human trafficking or forced labor under Indian law.",
+"religion":"All citizens have the freedom to practice, profess, and propagate their religion.",
+"constitutional":"Citizens can move the courts to enforce their Fundamental Rights.",
+"legal aid":"Under Article 39A, free legal aid is available to people who cannot afford lawyers.",
+"child rights":"Children have the right to protection, education, and participation under the Constitution
