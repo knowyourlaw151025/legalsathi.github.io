@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MAYA — LegalSathi</title>
+  <style>
+    :root {
+      --bg: #e8f5f3;
+      --card: #ffffff;
+      --text: #212121;
+      --teal: #009688;
+      --dark-teal: #00695c;
+      --bubble-user: #009688;
+      --bubble-maya: #f1f1f1;
+    }
+    body.dark {
+      --bg: #121212;
+      --card: #1e1e1e;
+      --text: #f1f1f1;
+      --teal: #26a69a;
+      --dark-teal: #004d40;
+      --bubble-user: #26a69a;
+      --bubble-maya: #2c2c2c;
+    }
+    body {
+      margin: 0;
+      font-family: "Poppins", sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      transition: background-color 0.3s, color 0.3s;
+    }
+    header {
+      background-color: var(--dark-teal);
+      color: white;
+      padding: 15px 20px;
+      font-size: 1.2em;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    header .right-controls {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    header button, header select {
+      background-color: var(--teal);
+      border: none;
+      color: white;
+      padding: 8px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: 0.3s;
+      font-size: 0.9em;
+    }
+    header button:hover, header select:hover {
+      background-color: var(--dark-teal);
+    }
+    /* Dark Mode Switch */
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 46px;
+      height: 24px;
+    }
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #ccc;
+      transition: 0.3s;
+      border-radius: 34px;
+    }
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 18px;
+      width: 18px;
+      left: 4px;
+      bottom: 3px;
+      background-color: white;
+      transition: 0.3s;
+      border-radius: 50%;
+    }
+    input:checked + .slider {
+      background-color: #26a69a;
+    }
+    input:checked + .slider:before {
+      transform: translateX(22px);
+    }
+    /* Chat Section */
+    #chat-section {
+      display: flex;
+      flex-direction: column;
+      height: calc(100vh - 70px);
+      max-width: 600px;
+      margin: auto;
+      background-color: var(--card);
+      border-radius: 10px;
+      box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+      transition: background-color 0.4s ease, opacity 0.4s ease;
+    }
+    .chat-box {
+      flex: 1;
+      overflow-y: auto;
+      padding: 15px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .message {
+      max-width: 80%;
+      padding: 10px 14px;
+      border-radius: 10px;
+      line-height: 1.4;
+      font-size: 0.95em;
+      transition: background-color 0.3s;
+      white-space: pre-line;
+    }
+    .user {
+      align-self: flex-end;
+      background-color: var(--bubble-user);
+      color: white;
+      border-bottom-right-radius: 2px;
+    }
+    .maya {
+      align-self: flex-start;
+      background-color: var(--bubble-maya);
+      color: var(--text);
+      border-bottom-left-radius: 2px;
+    }
+    .input-area {
+      display: flex;
+      border-top: 1px solid #ddd;
+      padding: 10px;
+      background-color: var(--bg);
+    }
+    .input-area input {
+      flex: 1;
+      padding: 10px;
+      border: none;
+      outline: none;
+      border-radius: 20px;
+      background: var(--bubble-maya);
+      color: var(--text);
+    }
+    .input-area button {
+      background-color: var(--teal);
+      color: white;
+      border: none;
+      margin-left: 10px;
+      border-radius: 50%;
+      width: 42px;
+      height: 42px;
+      cursor: pointer;
+      font-size: 1.1em;
+    }
+    /* About Section */
+    #about-section {
+      display: none;
+      max-width: 800px;
+      margin: 30px auto;
+      background: var(--card);
+      border-radius: 12px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+      padding: 30px;
+      transition: opacity 0.4s ease, background-color 0.3s;
+    }
+    #about-section h1 {
+      color: var(--teal);
+      text-align: center;
+    }
+    #about-section h3 {
+      color: var(--teal);
+      margin-top: 25px;
+    }
+    #about-section p {
+      line-height: 1.7;
+      font-size: 1em;
+    }
+    .team {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      flex-wrap: wrap;
+      margin-top: 30px;
+    }
+    .member {
+      text-align: center;
+    }
+    .member img {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 10px;
+      border: 3px solid var(--teal);
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <span id="page-title">MAYA — LegalSathi</span>
+    <div class="right-controls">
+      <label class="switch">
+        <input type="checkbox" id="dark-toggle" />
+        <span class="slider"></span>
+      </label>
+      <select id="lang-select">
+        <option value="english" selected>English</option>
+        <option value="hindi">Hindi</option>
+      </select>
+      <button id="toggle-btn">About Us</button>
+    </div>
+  </header>
+
+  <!-- Chat Section -->
+  <section id="chat-section">
+    <div class="chat-box" id="chat-box">
+      <div class="message maya">
+        👋 Hi, I'm MAYA — your Legal Assistant! Ask me about your rights.
+      </div>
+    </div>
+    <div class="input-area">
+      <input id="user-input" type="text" placeholder="Ask your question here..." />
+      <button id="send-btn">➤</button>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section id="about-section">
+    <h1>About MAYA</h1>
+    <p>
+      <b>MAYA (My AI Legal Assistant)</b> is a project by two Class 11 students who wanted to make legal knowledge
+      simple and accessible to every Indian citizen.
+    </p>
+
+    <h3>💡 Our Mission</h3>
+    <p>
+      To build an easy-to-use chatbot that helps citizens understand their legal rights, in both English and Hindi,
+      using verified information from trusted government sources.
+    </p>
+
+    <h3>👥 Our Team</h3>
+    <div class="team">
+      <div class="member">
+        <img src="https://via.placeholder.com/120" alt="Mayank Srivastava" />
+        <h4>Mayank Srivastava</h4>
+        <p>Founder & Developer</p>
+      </div>
+
+      <div class="member">
+        <img src="https://via.placeholder.com/120" alt="Friend Name" />
+        <h4>[Friend Name]</h4>
+        <p>Co-Founder & Research Head</p>
+      </div>
+    </div>
+
+    <h3>📚 Our Journey</h3>
+    <p>
+      MAYA began as a Class 11 capstone project called <b>LegalSathi</b>. What started as a simple chatbot that teaches
+      people about their rights is now growing into a full-fledged web app that can empower millions.
+    </p>
+  </section>
+
+  <script>
+    const toggleBtn = document.getElementById("toggle-btn");
+    const chatSection = document.getElementById("chat-section");
+    const aboutSection = document.getElementById("about-section");
+    const pageTitle = document.getElementById("page-title");
+    const darkToggle = document.getElementById("dark-toggle");
+    const chatBox = document.getElementById("chat-box");
+    const input = document.getElementById("user-input");
+    const sendBtn = document.getElementById("send-btn");
+    const langSelect = document.getElementById("lang-select");
+
+    // Toggle Chat/About
+    toggleBtn.addEventListener("click", () => {
+      if (chatSection.style.display !== "none") {
+        chatSection.style.display = "none";
+        aboutSection.style.display = "block";
+        toggleBtn.textContent = "Back to Chat";
+        pageTitle.textContent = "About Us — MAYA";
+      } else {
+        aboutSection.style.display = "none";
+        chatSection.style.display = "flex";
+        toggleBtn.textContent = "About Us";
+        pageTitle.textContent = "MAYA — LegalSathi";
+      }
+    });
+
+    // Dark Mode
+    darkToggle.addEventListener("change", () => {
+      document.body.classList.toggle("dark", darkToggle.checked);
+      localStorage.setItem("darkMode", darkToggle.checked);
+    });
+    if (localStorage.getItem("darkMode") === "true") {
+      darkToggle.checked = true;
+      document.body.classList.add("dark");
+    }
+
+    // Chatbot with India Code API
+    sendBtn.addEventListener("click", sendMsg);
+    input.addEventListener("keypress", e => { if(e.key === "Enter") sendMsg(); });
+
+    async function sendMsg() {
+      const msg = input.value.trim();
+      if (!msg) return;
+      appendMessage(msg, "user");
+      input.value = "";
+
+      appendMessage("MAYA is fetching the law... 📖", "maya");
+
+      try {
+        // Format query for API (replace spaces with hyphens)
+        const query = msg.toLowerCase().replace(/\s+/g, "-");
+        const url = `https://apisetu.gov.in/public/marketplace/api/indiacode/india-code/v1/acts/${query}`;
+
+        const res = await fetch(url);
+        if (!res.ok) throw new Error("Law not found");
+
+        const data = await res.json();
+
+        const lang = langSelect.value;
+
+        let title = data.title || msg;
+        let summary = data.summary || "No summary available";
+
+        if (lang === "hindi") {
+          summary = "हिंदी अनुवाद यहाँ प्रदर्शित होगा (translation feature needed)";
+        }
+
+        const answer = `📘 ${title}\n${summary}\n🔗 Source: ${data.sourceUrl || "https://indiacode.nic.in/"}`;
+
+        // Remove typing message
+        const typingMsg = chatBox.querySelector(".message.maya:last-child");
+        if(typingMsg) typingMsg.remove();
+
+        appendMessage(answer, "maya");
+
+      } catch(err) {
+        const typingMsg = chatBox.querySelector(".message.maya:last-child");
+        if(typingMsg) typingMsg.remove();
+
+        appendMessage(
+          langSelect.value === "english"
+            ? "Sorry, I couldn't find that law. Try asking another law."
+            : "माफ़ कीजिए, मुझे यह कानून नहीं मिला। कृपया कोई अन्य कानून पूछें।",
+          "maya"
+        );
+
+        console.error(err);
+      }
+    }
+
+    function appendMessage(text, sender) {
+      const msgDiv = document.createElement("div");
+      msgDiv.className = `message ${sender}`;
+      msgDiv.textContent = text;
+      chatBox.appendChild(msgDiv);
+      chatBox.scrollTop = chatBox.scrollHeight;
+    }
+  </script>
+</body>
+</html>
